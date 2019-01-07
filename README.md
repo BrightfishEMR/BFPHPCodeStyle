@@ -18,14 +18,17 @@ xcode-select --install
 # Install PHP 7.2 TS with pear, note that thread safety is optional but recommended
 brew install php@7.2 --with-pear --with-thread-safety
 
+# Only needed on fresh install, link php@7.2 to path
+brew link php@7.2 --force
+
 # Add pear to the include path
 echo 'include_path = ".:'$(pear config-get php_dir)'"' | sudo tee -a $(php -r 'echo php_ini_loaded_file();')
 
 # Install PHP_CodeSniffer
 sudo pear install PHP_CodeSniffer
 
-# Unlink old PHP versions and re-link this version
-brew unlink php && brew link php@7.2
+# Relink to add phpcs to path
+brew unlink php@7.2 && brew link php@7.2 --force
 
 # Delete the existing dir if exists
 sudo rm -rf ~/BFPHPCodeStyle/ 2> /dev/null
