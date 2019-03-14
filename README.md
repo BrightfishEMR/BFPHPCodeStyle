@@ -15,11 +15,11 @@
 # Ensure xcode is installed with xcode command line tools, note: this might spawn a prompt
 xcode-select --install
 
-# Install PHP 7.2 TS with pear, note that thread safety is optional but recommended
-brew install php@7.2 --with-pear --with-thread-safety
+# Install PHP 7.3 (includes pear)
+brew install php@7.3
 
-# Only needed on fresh install, link php@7.2 to path
-brew link php@7.2 --force
+# Only needed on fresh install, link php@7.3 to path
+brew link php@7.3 --force
 
 # Add pear to the include path
 echo 'include_path = ".:'$(pear config-get php_dir)'"' | sudo tee -a $(php -r 'echo php_ini_loaded_file();')
@@ -28,7 +28,7 @@ echo 'include_path = ".:'$(pear config-get php_dir)'"' | sudo tee -a $(php -r 'e
 sudo pear install PHP_CodeSniffer
 
 # Relink to add phpcs to path
-brew unlink php@7.2 && brew link php@7.2 --force
+brew unlink php@7.3 && brew link php@7.3 --force
 
 # Delete the existing dir if exists
 sudo rm -rf ~/BFPHPCodeStyle/ 2> /dev/null
